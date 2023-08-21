@@ -193,7 +193,7 @@ extension RegisterViewController{
             make.height.equalTo(52)
         }
     }
-    func alertUserLoginError(message: String = "Please enter all information to create a new account. "){
+    func alertUserLoginError(message: String = "Please enter all information to create a new account."){
         let alert = UIAlertController(title: "Woops",
                                    message: message,
                                       preferredStyle: .alert)
