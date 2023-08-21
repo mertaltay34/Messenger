@@ -25,7 +25,7 @@
 		8B53AAFA2A8B493E006F1088 /* ProfileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B53AAF92A8B493E006F1088 /* ProfileViewController.swift */; };
 		8B53AAFF2A8B5EBD006F1088 /* Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8B53AAFE2A8B5EBD006F1088 /* Extension.swift */; };
 		8B53AB022A8B72C2006F1088 /* SnapKit in Frameworks */ = {isa = PBXBuildFile; productRef = 8B53AB012A8B72C2006F1088 /* SnapKit */; };
-		8BC294FE2A933046002F4E36 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BC294FD2A933046002F4E36 /* GoogleService-Info.plist */; };
+		8BE740F42A938511003727D9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8BE740F32A938511003727D9 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,7 +44,7 @@
 		8B53AAF72A8B492A006F1088 /* NewConversationViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewConversationViewController.swift; sourceTree = "<group>"; };
 		8B53AAF92A8B493E006F1088 /* ProfileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileViewController.swift; sourceTree = "<group>"; };
 		8B53AAFE2A8B5EBD006F1088 /* Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extension.swift; sourceTree = "<group>"; };
-		8BC294FD2A933046002F4E36 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		8BE740F32A938511003727D9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,7 +82,7 @@
 		8B53AAD52A8B4532006F1088 /* Messenger */ = {
 			isa = PBXGroup;
 			children = (
-				8BC294FD2A933046002F4E36 /* GoogleService-Info.plist */,
+				8BE740F32A938511003727D9 /* GoogleService-Info.plist */,
 				8B53AAFD2A8B5EAB006F1088 /* Helpers */,
 				8B53AAEE2A8B458D006F1088 /* Resources */,
 				8B53AAED2A8B4584006F1088 /* ViewModels */,
@@ -228,7 +228,7 @@
 			files = (
 				8B53AAE32A8B4534006F1088 /* LaunchScreen.storyboard in Resources */,
 				8B53AAE02A8B4534006F1088 /* Assets.xcassets in Resources */,
-				8BC294FE2A933046002F4E36 /* GoogleService-Info.plist in Resources */,
+				8BE740F42A938511003727D9 /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
