@@ -18,9 +18,18 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowsScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowsScene)
-        window?.rootViewController = UINavigationController(rootViewController: ConversationsViewController())
+        window?.rootViewController = configureNavigationController(rootViewController: ConversationsViewController())
         window?.makeKeyAndVisible()
-
+    }
+    private func configureNavigationController(rootViewController: UIViewController) -> UINavigationController {
+        let controller = UINavigationController(rootViewController: rootViewController)
+        let apperance = UINavigationBarAppearance()
+        apperance.configureWithDefaultBackground()
+        controller.navigationBar.standardAppearance = apperance
+        controller.navigationBar.compactAppearance = apperance
+        controller.navigationBar.scrollEdgeAppearance = apperance
+        controller.navigationBar.compactScrollEdgeAppearance = apperance
+        return controller
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
