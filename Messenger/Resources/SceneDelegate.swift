@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import FacebookCore
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
@@ -18,18 +18,26 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
         // This delegate does not imply the connecting scene or session are new (see `application:configurationForConnectingSceneSession` instead).
         guard let windowsScene = (scene as? UIWindowScene) else { return }
         window = UIWindow(windowScene: windowsScene)
-        window?.rootViewController = configureNavigationController(rootViewController: ConversationsViewController())
+        window?.rootViewController = createTabBarController(rootViewController: MainTabBarController())
         window?.makeKeyAndVisible()
     }
-    private func configureNavigationController(rootViewController: UIViewController) -> UINavigationController {
-        let controller = UINavigationController(rootViewController: rootViewController)
-        let apperance = UINavigationBarAppearance()
-        apperance.configureWithDefaultBackground()
-        controller.navigationBar.standardAppearance = apperance
-        controller.navigationBar.compactAppearance = apperance
-        controller.navigationBar.scrollEdgeAppearance = apperance
-        controller.navigationBar.compactScrollEdgeAppearance = apperance
-        return controller
+    func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+        guard let url = URLContexts.first?.url else {
+            return
+        }
+        ApplicationDelegate.shared.application(
+            UIApplication.shared,
+            open: url,
+            sourceApplication: nil,
+            annotation: [UIApplication.OpenURLOptionsKey.annotation]
+        )
+    }
+    fileprivate func createTabBarController(rootViewController: UITabBarController) -> UITabBarController {
+        let appearance = UITabBarAppearance()
+        appearance.configureWithOpaqueBackground()
+        rootViewController.tabBar.standardAppearance = appearance
+        rootViewController.tabBar.scrollEdgeAppearance = appearance
+        return rootViewController
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {
