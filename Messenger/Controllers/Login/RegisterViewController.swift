@@ -7,9 +7,11 @@
 
 import UIKit
 import FirebaseAuth
+import JGProgressHUD
 
 class RegisterViewController: UIViewController {
     //MARK: - Properties
+    private let spinner = JGProgressHUD(style: .dark)
     private lazy var addProfileImage: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(systemName: "camera.circle")
@@ -137,6 +139,9 @@ extension RegisterViewController{
         //MARK: - FirseBase Log in
         DatabaseManager.shared.userExists(with: email) { [weak self] exists in
             guard let strongSelf = self else { return } // Eğer self hala geçerli ise, bu güçlü referans üzerinden işlemler gerçekleştirilir. Eğer self geçerli değilse (yani nesne yok edildiyse), kapanışın geri kalanı çalıştırılmadan çıkılır. Sonuç olarak, bu yöntem hafıza sızıntılarını önler ve asenkron işlem tamamlandığında güvenli bir şekilde işlemlerin gerçekleştirilmesini sağlar.
+            DispatchQueue.main.async {
+                strongSelf.spinner.dismiss()
+            }
             guard !exists else {
                 // user already exists
                 strongSelf.alertUserLoginError(message: "Looks like a user account for that email address already exists.")

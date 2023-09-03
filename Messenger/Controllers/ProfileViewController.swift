@@ -8,6 +8,8 @@
 import UIKit
 import SnapKit
 import FirebaseAuth
+import FacebookLogin
+import GoogleSignIn
 
 private let reuseIdentifier = "ProfileCell"
 class ProfileViewController: UIViewController {
@@ -65,6 +67,10 @@ extension ProfileViewController: UITableViewDataSource, UITableViewDelegate{
         let actionSheet = UIAlertController(title: "", message: "", preferredStyle: .actionSheet)
         actionSheet.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { [weak self] _ in
             guard let strongSelf = self else { return }
+            //MARK: - Log Out Facebook
+            FBSDKLoginKit.LoginManager().logOut()
+            //MARK: - Log out Google
+            GIDSignIn.sharedInstance.signOut()
             do{
                 try FirebaseAuth.Auth.auth().signOut()
                 let vc = LoginViewController()

@@ -9,9 +9,12 @@ import UIKit
 import SnapKit
 import FirebaseAuth
 import FacebookLogin
+import GoogleSignIn
+import JGProgressHUD
 
 class LoginViewController: UIViewController {
     //MARK: - Properties
+    private let spinner = JGProgressHUD(style: .dark)
     private let logoImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.image = UIImage(named: "logo")
@@ -74,6 +77,14 @@ class LoginViewController: UIViewController {
         button.layer.masksToBounds = true
         return button
     }()
+    private let googleLoginButton : GIDSignInButton = {
+        let button = GIDSignInButton()
+        button.colorScheme = .dark
+        button.style = .wide
+        button.layer.cornerRadius = 12
+        button.layer.masksToBounds = true
+        return button
+    }()
     private var stackView = UIStackView()
     //MARK: - Lifecylce
     override func viewDidLoad() {
@@ -100,8 +111,13 @@ extension LoginViewController{
                     alertUserLoginError()
                     return
         }
+        spinner.show(in: view)
+        //Firebase Log In
         FirebaseAuth.Auth.auth().signIn(withEmail: email, password: password) { [weak self] authResult, error in
             guard let strongSelf = self else { return }
+            DispatchQueue.main.async {
+                strongSelf.spinner.dismiss()
+            }
             guard let result = authResult, error == nil else {
                 print("Failed to log in user with email: \(email)")
                 return
@@ -124,7 +140,7 @@ extension LoginViewController{
         passwordTextField.delegate = self
         facebookLoginButton.delegate = self
         // stackview
-        stackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, loginButton, facebookLoginButton])
+        stackView = UIStackView(arrangedSubviews: [emailTextField, passwordTextField, loginButton, facebookLoginButton, googleLoginButton])
         stackView.axis = .vertical
         stackView.spacing = 20
 //        stackView.distribution = .fillEqually
@@ -172,7 +188,7 @@ extension LoginViewController: UITextFieldDelegate{
         return true
     }
 }
-    //MARK: LoginButtonDelegate
+    //MARK: FacebookLoginButtonDelegate
 extension LoginViewController: LoginButtonDelegate{
     func loginButtonDidLogOut(_ loginButton: FBSDKLoginKit.FBLoginButton) {
         // log out göstermek için başka sayfayı kullanıyoruz zaten facebook log out kısmını göstermeyeceğiz.
@@ -209,10 +225,14 @@ extension LoginViewController: LoginButtonDelegate{
                 }
             }
             let credential = FacebookAuthProvider.credential(withAccessToken: token)
+            self.spinner.show(in: self.view)
             FirebaseAuth.Auth.auth().signIn(with: credential) { [weak self] authResult, error in
                 guard let strongSelf = self else { return }
+                DispatchQueue.main.async {
+                    strongSelf.spinner.dismiss()
+                }
                 guard  authResult != nil, error == nil else {
-                    if let error = error {
+                    if error != nil {
                         print("Facebook credential login failed, MFA may be needed.")
                     }
                     return
